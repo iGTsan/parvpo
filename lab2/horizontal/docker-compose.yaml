@@ -1,0 +1,130 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - consumer1
+    networks:
+      - lab2network
+
+  producer1:
+    build:
+      context: ./producer1
+    depends_on:
+      - nginx
+    env_file:
+      - ./MSize.env
+    networks:
+      - lab2network
+
+  producer2:
+    build:
+      context: ./producer2
+    depends_on:
+      - nginx
+    env_file:
+      - ./MSize.env
+    networks:
+      - lab2network
+
+  consumer1:
+    build:
+      context: ./consumer
+    networks:
+      - lab2network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.9'
+
+  consumer2:
+    build:
+      context: ./consumer
+      # no_cache: true
+    networks:
+      - lab2network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.9'
+
+  consumer3:
+    build:
+      context: ./consumer
+      # no_cache: true
+    networks:
+      - lab2network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.9'
+
+  consumer4:
+    build:
+      context: ./consumer
+    networks:
+      - lab2network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.9'
+
+  consumer5:
+    build:
+      context: ./consumer
+      # no_cache: true
+    networks:
+      - lab2network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.9'
+
+  consumer6:
+    build:
+      context: ./consumer
+      # no_cache: true
+    networks:
+      - lab2network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.9'
+
+  consumer7:
+    build:
+      context: ./consumer
+    networks:
+      - lab2network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.9'
+
+  consumer8:
+    build:
+      context: ./consumer
+      # no_cache: true
+    networks:
+      - lab2network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.9'
+
+  consumer9:
+    build:
+      context: ./consumer
+      # no_cache: true
+    networks:
+      - lab2network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.9'
+
+networks:
+  lab2network:
