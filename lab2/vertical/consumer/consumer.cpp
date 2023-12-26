@@ -58,45 +58,11 @@ bool isPerfectSquare(int num) {
     return squareRoot * squareRoot == num;
 }
 
-int handleProducerMessage(int num, std::vector<int> buf){
-    if (num == -1){
-        return 1;
-    }
-    else{
-        buf.push_back(num);
-        return 0;
-    }
-}
-
-int* vectorToArray(const std::vector<int>& vec) {
-    int* arr = new int[vec.size()]; // Create a new array with the same size as the vector
-    
-    // Copy the elements from the vector to the array
-    for (size_t i = 0; i < vec.size(); i++) {
-        arr[i] = vec[i];
-    }
-    
-    return arr; // Return the pointer to the array
-}
-
 std::vector<int> getData(const std::string& requestContent) {
     std::string buffer;
 
-    //std::size_t closingCurlyBracePos = requestContent.find("{");
-
-    //std::cout << "closingCurlyBracePos: " << closingCurlyBracePos  << std::endl;
-
-    if (1) {
-
-        for (int i = 0; i < requestContent.length(); i++) {
-            buffer += requestContent[i];
-        }
-
-        //buffer = requestContent.substr(0, closingCurlyBracePos + 1);
-        //std::cout << buffer << " " << buffer.length() <<  std::endl;
-    }
-    else {
-        return std::vector<int>{-1, -520, 0, 0};
+    for (int i = 0; i < requestContent.length(); i++) {
+        buffer += requestContent[i];
     }
 
     nlohmann::json json = nlohmann::json::parse(buffer);
@@ -106,14 +72,11 @@ std::vector<int> getData(const std::string& requestContent) {
     int messageRow = json["message_row"];
     int messageColoumn = json["message_coloumn"];
 
-    //std::cout << messageType << " " << messageContent << std::endl;
-
     return std::vector<int>{messageType, messageContent, messageRow, messageColoumn};
 }
 
 
 void vectorInsert(std::vector<int>& vec, int num, int x, int y, int n, int m) {
-    // std::cout << "Instert: " << x << ' ' << y << ' ' << n << ' ' << m << ' ' << (x%n) * m + y << std::endl;
     if (vec.size() < n * m) {
         vec.resize(n * m);
     }
@@ -182,16 +145,8 @@ int main(int argc, char** argv) {
 
             if (got_data == 2) {
 
-                printMatrix(vectorToList(matrix1_demo), Msize, Msize);
-                printMatrix(vectorToList(matrix2_demo), Msize, Msize);
-
                 if (isPerfectSquare(matrix1_demo.size()) && isPerfectSquare(matrix2_demo.size())) {
-                    //std::cout << "Result: " << std::endl;
                     std::list<int> result = matrixMultiply(vectorToList(matrix1_demo), vectorToList(matrix2_demo), Msize);
-                    // for (int i = 0; i < result.size(); i++) {
-                    //     std::cout << result[i] << " ";
-                    // }
-                    //std::cout << std::endl;
                     printMatrix(result, Msize, Msize);
                 }
 

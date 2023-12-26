@@ -35,14 +35,8 @@ void printMatrix(const std::list<int>& matrix, int n, int m) {
 std::vector<int> getData(const std::string& requestContent) {
     std::string buffer;
 
-    if (1) {
-
-        for (int i = 0; i < requestContent.length(); i++) {
-            buffer += requestContent[i];
-        }
-    }
-    else {
-        return std::vector<int>{-1, -520, 0, 0};
+    for (int i = 0; i < requestContent.length(); i++) {
+        buffer += requestContent[i];
     }
 
     nlohmann::json json = nlohmann::json::parse(buffer);
@@ -55,10 +49,6 @@ std::vector<int> getData(const std::string& requestContent) {
     for (int i = 0; i < json["n"]; i++) {
         for (int j = 0; j < json["m"]; j++) {
             res.push_back(json["matrix"][i * res[2] + j]);
-            {
-                // std::lock_guard<std::mutex> guard(mtx);
-                // std::cout << "Instert: " << res[0] << ' ' << res[1] << ' ' << res[2] << ' ' << res[res.size() - 1] << std::endl;
-            }
         }
     }
 

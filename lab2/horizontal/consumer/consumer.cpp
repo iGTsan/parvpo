@@ -61,63 +61,22 @@ std::list<int> matrixMultiply(const std::list<int>& matrix1, const std::list<int
             
             for (int k = 0; k < c; ++k) {
                 *it += *it1 * *it2;
-                // ::std::cout << *it1 << '*' << *it2 << " + ";
                 std::advance(it1, 1);
                 std::advance(it2, m);
             }
-            // ::std::cout << *it << std::endl;
             ++it;
         }
     }
     
     return result;
 }
-bool isPerfectSquare(int num) {
-    int squareRoot = std::sqrt(num);
-    return squareRoot * squareRoot == num;
-}
-
-int handleProducerMessage(int num, std::vector<int> buf){
-    if (num == -1){
-        return 1;
-    }
-    else{
-        buf.push_back(num);
-        return 0;
-    }
-}
-
-int* vectorToArray(const std::vector<int>& vec) {
-    int* arr = new int[vec.size()]; // Create a new array with the same size as the vector
-    
-    // Copy the elements from the vector to the array
-    for (size_t i = 0; i < vec.size(); i++) {
-        arr[i] = vec[i];
-    }
-    
-    return arr; // Return the pointer to the array
-}
 
 std::vector<int> getData(const std::string& requestContent) {
     std::string buffer;
 
-    //std::size_t closingCurlyBracePos = requestContent.find("{");
-
-    //std::cout << "closingCurlyBracePos: " << closingCurlyBracePos  << std::endl;
-
-    if (1) {
-
-        for (int i = 0; i < requestContent.length(); i++) {
-            buffer += requestContent[i];
-        }
-
-        //buffer = requestContent.substr(0, closingCurlyBracePos + 1);
-        //std::cout << buffer << " " << buffer.length() <<  std::endl;
+    for (int i = 0; i < requestContent.length(); i++) {
+        buffer += requestContent[i];
     }
-    else {
-        return std::vector<int>{-1, -520, 0, 0};
-    }
-
     nlohmann::json json = nlohmann::json::parse(buffer);
 
     int messageContent = json["message_content"];
@@ -257,22 +216,12 @@ int main(int argc, char** argv) {
             // std::cout << prod_type << prod_data;
 
             if (prod_type == 1) {
-                if (prod_data == -1) {
-                    got_data += 1;
-                }
-                else {
-                    vectorInsert(matrix1_demo, prod_data, x, y, n1, m1, part_len);
-                    matrix1_demo.push_back(prod_data);
-                }
+                vectorInsert(matrix1_demo, prod_data, x, y, n1, m1, part_len);
             } 
             else if (prod_type == 2) {
-                if (prod_data == -1) {
-                    got_data += 1;
-                }
-                else {
-                    vectorInsert(matrix2_demo, prod_data, x, y, n2, m2, part_len);
-                }
+                vectorInsert(matrix2_demo, prod_data, x, y, n2, m2, part_len);
             }
+            got_msg++;
 
             // Construct an HTTP response
             std::string responseContent = std::to_string(prod_data); // Placeholder for the response content
@@ -286,31 +235,14 @@ int main(int argc, char** argv) {
 
     CROW_ROUTE(app, "/end").methods("POST"_method)(
         [&](const crow::request& req, crow::response& res) {
-            got_data += 1;
-
-            // std::cout << "End gotted" << std::endl;            
- 
+            got_data += 1;        
             if (got_data == 2) {
-                // std::cout << "Start multiplying matrix" << std::endl;
-                auto timer1 = std::chrono::high_resolution_clock::now();
-
-                // printMatrix(vectorToList(matrix1_demo), n1, m1);
-                // printMatrix(vectorToList(matrix2_demo), n2, m2);
-
                 if (got_msg == n1*m1 + n2*m2) {
                     std::list<int> result = matrixMultiply(vectorToList(matrix1_demo), vectorToList(matrix2_demo), n1, m2, m1);
                     sendMatrix(result, consumerNumber, n1, m2);
-                    // printMatrix(result, n1, m2);
                 } else {
                     std::cout << "Not enough messages! Got: " << got_msg << " messages but need: " << n1*m1 + n2*m2 << std::endl;
                 }
-
-                auto timer2 = std::chrono::high_resolution_clock::now();   
-
-                std::chrono::duration<double, std::milli> duration = timer2 - timer1;
-
-                // std::cout << "Time: " << duration.count() << " ms" << std::endl;
-
                 exit(0);
             }
         }
