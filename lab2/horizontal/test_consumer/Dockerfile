@@ -18,9 +18,9 @@ COPY json.hpp .
 
 
 # Compile the consumer.cpp file
-RUN g++ -o consumer consumer.cpp -lpthread -I/usr/include/Poco -L/usr/lib -lPocoNet -lPocoUtil -lPocoJSON -lPocoXML -lPocoFoundation
+RUN g++ -o consumer consumer.cpp -lpthread -lcurl -I/usr/include/Poco -L/usr/lib -lPocoNet -lPocoUtil -lPocoJSON -lPocoXML -lPocoFoundation
 
 CMD ["cd /app"]
 
 # Set the entry point for the container
-CMD ./consumer $CONSUMER_NUMBER $NConsumers $MSize
+CMD ./consumer 1 $NConsumers $MSize

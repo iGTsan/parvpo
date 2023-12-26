@@ -1,0 +1,301 @@
+#0 building with "default" instance using docker driver
+
+#1 [producer2 internal] load .dockerignore
+#1 transferring context: 2B done
+#1 DONE 0.1s
+
+#2 [producer2 internal] load build definition from Dockerfile
+#2 transferring dockerfile: 388B done
+#2 DONE 0.1s
+
+#3 [producer1 internal] load build definition from Dockerfile
+#3 transferring dockerfile: 388B done
+#3 DONE 0.1s
+
+#4 [producer2 internal] load metadata for docker.io/library/golang:latest
+#4 ...
+
+#5 [producer1 internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.1s
+
+#6 [consumer internal] load build definition from Dockerfile
+#6 transferring dockerfile: 597B done
+#6 DONE 0.1s
+
+#7 [consumer internal] load .dockerignore
+#7 transferring context: 2B done
+#7 DONE 0.2s
+
+#4 [producer1 internal] load metadata for docker.io/library/golang:latest
+#4 DONE 0.5s
+
+#8 [producer2 1/5] FROM docker.io/library/golang:latest@sha256:672a2286da3ee7a854c3e0a56e0838918d0dbb1c18652992930293312de898a6
+#8 DONE 0.0s
+
+#9 [producer1 internal] load build context
+#9 transferring context: 2.06kB done
+#9 DONE 0.1s
+
+#10 [producer2 internal] load build context
+#10 transferring context: 2.06kB done
+#10 DONE 0.1s
+
+#11 [consumer internal] load metadata for docker.io/library/debian:12
+#11 DONE 0.5s
+
+#12 [producer1 2/5] WORKDIR /app
+#12 CACHED
+
+#13 [producer1 3/5] COPY producer.go .
+#13 CACHED
+
+#14 [producer1 4/5] RUN export GO111MODULE=off
+#14 CACHED
+
+#15 [producer1 5/5] RUN go build -o producer producer.go
+#15 CACHED
+
+#16 [consumer 1/7] FROM docker.io/library/debian:12@sha256:bac353db4cc04bc672b14029964e686cd7bad56fe34b51f432c1a1304b9928da
+#16 DONE 0.0s
+
+#17 [producer2] exporting to image
+#17 exporting layers done
+#17 writing image sha256:7f58c4f164ce136d22566dd4046981d3813b56580022ff286d5690cbf9c82c40 0.0s done
+#17 naming to docker.io/library/vertical-producer2 done
+#17 DONE 0.0s
+
+#18 [producer1] exporting to image
+#18 exporting layers done
+#18 writing image sha256:cbda4d325c97736c876982900e5158c0190cad56f1fe26cd0cb9dfa4480599f7 done
+#18 naming to docker.io/library/vertical-producer1 0.0s done
+#18 DONE 0.0s
+
+#19 [consumer internal] load build context
+#19 transferring context: 6.36kB done
+#19 DONE 0.0s
+
+#20 [consumer 2/7] WORKDIR /app
+#20 CACHED
+
+#21 [consumer 5/7] COPY crow_all.h .
+#21 CACHED
+
+#22 [consumer 3/7] RUN apt-get update &&     apt-get install -y build-essential &&     apt-get install -y libboost-all-dev
+#22 CACHED
+
+#23 [consumer 4/7] COPY consumer.cpp .
+#23 CACHED
+
+#24 [consumer 6/7] COPY json.hpp .
+#24 CACHED
+
+#25 [consumer 7/7] RUN g++ -lpthread -o consumer consumer.cpp
+#25 CACHED
+
+#26 [consumer] exporting to image
+#26 exporting layers done
+#26 writing image sha256:85a4661df537339545ca201359cc62e94da6c1b691ff9018a4e81c9f42d17707 done
+#26 naming to docker.io/library/vertical-consumer done
+#26 DONE 0.0s
+Attaching to vertical-consumer-1, vertical-producer1-1, vertical-producer2-1
+vertical-producer2-1  | Sending message 0...
+vertical-producer2-1  | Error sending message: Post "http://consumer:8080": dial tcp 172.20.0.3:8080: connect: connection refused
+vertical-consumer-1   | Starting server...
+vertical-producer1-1  | Sending message 0...
+vertical-consumer-1   | Instert: 0 0 9 9 0
+vertical-consumer-1   | Instert: 0 1 9 9 1
+vertical-consumer-1   | Instert: 0 2 9 9 2
+vertical-consumer-1   | Instert: 0 3 9 9 3
+vertical-consumer-1   | Instert: 0 4 9 9 4
+vertical-consumer-1   | Instert: 0 5 9 9 5
+vertical-consumer-1   | Instert: 0 6 9 9 6
+vertical-consumer-1   | Instert: 0 7 9 9 7
+vertical-consumer-1   | Instert: 0 8 9 9 8
+vertical-consumer-1   | Instert: 1 0 9 9 9
+vertical-consumer-1   | Instert: 1 1 9 9 10
+vertical-consumer-1   | Instert: 1 2 9 9 11
+vertical-consumer-1   | Instert: 1 3 9 9 12
+vertical-consumer-1   | Instert: 1 4 9 9 13
+vertical-consumer-1   | Instert: 1 5 9 9 14
+vertical-consumer-1   | Instert: 1 6 9 9 15
+vertical-consumer-1   | Instert: 1 7 9 9 16
+vertical-consumer-1   | Instert: 1 8 9 9 17
+vertical-consumer-1   | Instert: 2 0 9 9 18
+vertical-consumer-1   | Instert: 2 1 9 9 19
+vertical-consumer-1   | Instert: 2 2 9 9 20
+vertical-consumer-1   | Instert: 2 3 9 9 21
+vertical-consumer-1   | Instert: 2 4 9 9 22
+vertical-consumer-1   | Instert: 2 5 9 9 23
+vertical-consumer-1   | Instert: 2 6 9 9 24
+vertical-consumer-1   | Instert: 2 7 9 9 25
+vertical-consumer-1   | Instert: 2 8 9 9 26
+vertical-consumer-1   | Instert: 3 0 9 9 27
+vertical-consumer-1   | Instert: 3 1 9 9 28
+vertical-consumer-1   | Instert: 3 2 9 9 29
+vertical-consumer-1   | Instert: 3 3 9 9 30
+vertical-consumer-1   | Instert: 3 4 9 9 31
+vertical-consumer-1   | Instert: 3 5 9 9 32
+vertical-consumer-1   | Instert: 3 6 9 9 33
+vertical-consumer-1   | Instert: 3 7 9 9 34
+vertical-consumer-1   | Instert: 3 8 9 9 35
+vertical-consumer-1   | Instert: 4 0 9 9 36
+vertical-consumer-1   | Instert: 4 1 9 9 37
+vertical-consumer-1   | Instert: 4 2 9 9 38
+vertical-consumer-1   | Instert: 4 3 9 9 39
+vertical-consumer-1   | Instert: 4 4 9 9 40
+vertical-consumer-1   | Instert: 4 5 9 9 41
+vertical-consumer-1   | Instert: 4 6 9 9 42
+vertical-consumer-1   | Instert: 4 7 9 9 43
+vertical-consumer-1   | Instert: 4 8 9 9 44
+vertical-consumer-1   | Instert: 5 0 9 9 45
+vertical-consumer-1   | Instert: 5 1 9 9 46
+vertical-consumer-1   | Instert: 5 2 9 9 47
+vertical-consumer-1   | Instert: 5 3 9 9 48
+vertical-consumer-1   | Instert: 5 4 9 9 49
+vertical-consumer-1   | Instert: 5 5 9 9 50
+vertical-consumer-1   | Instert: 5 6 9 9 51
+vertical-consumer-1   | Instert: 5 7 9 9 52
+vertical-consumer-1   | Instert: 5 8 9 9 53
+vertical-consumer-1   | Instert: 6 0 9 9 54
+vertical-consumer-1   | Instert: 6 1 9 9 55
+vertical-consumer-1   | Instert: 6 2 9 9 56
+vertical-consumer-1   | Instert: 6 3 9 9 57
+vertical-consumer-1   | Instert: 6 4 9 9 58
+vertical-consumer-1   | Instert: 6 5 9 9 59
+vertical-consumer-1   | Instert: 6 6 9 9 60
+vertical-consumer-1   | Instert: 6 7 9 9 61
+vertical-consumer-1   | Instert: 6 8 9 9 62
+vertical-consumer-1   | Instert: 7 0 9 9 63
+vertical-consumer-1   | Instert: 7 1 9 9 64
+vertical-consumer-1   | Instert: 7 2 9 9 65
+vertical-consumer-1   | Instert: 7 3 9 9 66
+vertical-consumer-1   | Instert: 7 4 9 9 67
+vertical-consumer-1   | Instert: 7 5 9 9 68
+vertical-consumer-1   | Instert: 7 6 9 9 69
+vertical-consumer-1   | Instert: 7 7 9 9 70
+vertical-consumer-1   | Instert: 7 8 9 9 71
+vertical-consumer-1   | Instert: 8 0 9 9 72
+vertical-consumer-1   | Instert: 8 1 9 9 73
+vertical-consumer-1   | Instert: 8 2 9 9 74
+vertical-consumer-1   | Instert: 8 3 9 9 75
+vertical-consumer-1   | Instert: 8 4 9 9 76
+vertical-consumer-1   | Instert: 8 5 9 9 77
+vertical-consumer-1   | Instert: 8 6 9 9 78
+vertical-consumer-1   | Instert: 8 7 9 9 79
+vertical-consumer-1   | Instert: 8 8 9 9 80
+vertical-producer2-1  | Sending message 0...
+vertical-consumer-1   | Instert: 0 0 9 9 0
+vertical-consumer-1   | Instert: 0 1 9 9 1
+vertical-consumer-1   | Instert: 0 2 9 9 2
+vertical-consumer-1   | Instert: 0 3 9 9 3
+vertical-consumer-1   | Instert: 0 4 9 9 4
+vertical-consumer-1   | Instert: 0 5 9 9 5
+vertical-consumer-1   | Instert: 0 6 9 9 6
+vertical-consumer-1   | Instert: 0 7 9 9 7
+vertical-consumer-1   | Instert: 0 8 9 9 8
+vertical-consumer-1   | Instert: 1 0 9 9 9
+vertical-consumer-1   | Instert: 1 1 9 9 10
+vertical-consumer-1   | Instert: 1 2 9 9 11
+vertical-consumer-1   | Instert: 1 3 9 9 12
+vertical-consumer-1   | Instert: 1 4 9 9 13
+vertical-consumer-1   | Instert: 1 5 9 9 14
+vertical-consumer-1   | Instert: 1 6 9 9 15
+vertical-consumer-1   | Instert: 1 7 9 9 16
+vertical-consumer-1   | Instert: 1 8 9 9 17
+vertical-consumer-1   | Instert: 2 0 9 9 18
+vertical-consumer-1   | Instert: 2 1 9 9 19
+vertical-consumer-1   | Instert: 2 2 9 9 20
+vertical-consumer-1   | Instert: 2 3 9 9 21
+vertical-consumer-1   | Instert: 2 4 9 9 22
+vertical-consumer-1   | Instert: 2 5 9 9 23
+vertical-consumer-1   | Instert: 2 6 9 9 24
+vertical-consumer-1   | Instert: 2 7 9 9 25
+vertical-consumer-1   | Instert: 2 8 9 9 26
+vertical-consumer-1   | Instert: 3 0 9 9 27
+vertical-consumer-1   | Instert: 3 1 9 9 28
+vertical-consumer-1   | Instert: 3 2 9 9 29
+vertical-consumer-1   | Instert: 3 3 9 9 30
+vertical-consumer-1   | Instert: 3 4 9 9 31
+vertical-consumer-1   | Instert: 3 5 9 9 32
+vertical-consumer-1   | Instert: 3 6 9 9 33
+vertical-consumer-1   | Instert: 3 7 9 9 34
+vertical-consumer-1   | Instert: 3 8 9 9 35
+vertical-consumer-1   | Instert: 4 0 9 9 36
+vertical-consumer-1   | Instert: 4 1 9 9 37
+vertical-consumer-1   | Instert: 4 2 9 9 38
+vertical-consumer-1   | Instert: 4 3 9 9 39
+vertical-consumer-1   | Instert: 4 4 9 9 40
+vertical-consumer-1   | Instert: 4 5 9 9 41
+vertical-consumer-1   | Instert: 4 6 9 9 42
+vertical-consumer-1   | Instert: 4 7 9 9 43
+vertical-consumer-1   | Instert: 4 8 9 9 44
+vertical-consumer-1   | Instert: 5 0 9 9 45
+vertical-consumer-1   | Instert: 5 1 9 9 46
+vertical-consumer-1   | Instert: 5 2 9 9 47
+vertical-consumer-1   | Instert: 5 3 9 9 48
+vertical-consumer-1   | Instert: 5 4 9 9 49
+vertical-consumer-1   | Instert: 5 5 9 9 50
+vertical-consumer-1   | Instert: 5 6 9 9 51
+vertical-consumer-1   | Instert: 5 7 9 9 52
+vertical-consumer-1   | Instert: 5 8 9 9 53
+vertical-consumer-1   | Instert: 6 0 9 9 54
+vertical-consumer-1   | Instert: 6 1 9 9 55
+vertical-consumer-1   | Instert: 6 2 9 9 56
+vertical-consumer-1   | Instert: 6 3 9 9 57
+vertical-consumer-1   | Instert: 6 4 9 9 58
+vertical-consumer-1   | Instert: 6 5 9 9 59
+vertical-consumer-1   | Instert: 6 6 9 9 60
+vertical-consumer-1   | Instert: 6 7 9 9 61
+vertical-consumer-1   | Instert: 6 8 9 9 62
+vertical-consumer-1   | Instert: 7 0 9 9 63
+vertical-consumer-1   | Instert: 7 1 9 9 64
+vertical-consumer-1   | Instert: 7 2 9 9 65
+vertical-consumer-1   | Instert: 7 3 9 9 66
+vertical-consumer-1   | Instert: 7 4 9 9 67
+vertical-consumer-1   | Instert: 7 5 9 9 68
+vertical-consumer-1   | Instert: 7 6 9 9 69
+vertical-consumer-1   | Instert: 7 7 9 9 70
+vertical-consumer-1   | Instert: 7 8 9 9 71
+vertical-consumer-1   | Instert: 8 0 9 9 72
+vertical-consumer-1   | Instert: 8 1 9 9 73
+vertical-consumer-1   | Instert: 8 2 9 9 74
+vertical-consumer-1   | Instert: 8 3 9 9 75
+vertical-consumer-1   | Instert: 8 4 9 9 76
+vertical-consumer-1   | Instert: 8 5 9 9 77
+vertical-consumer-1   | Instert: 8 6 9 9 78
+vertical-consumer-1   | Instert: 8 7 9 9 79
+vertical-consumer-1   | Instert: 8 8 9 9 80
+vertical-consumer-1   | 82 888 848 60 82 319 426 541 457 
+vertical-consumer-1   | 301 695 512 163 90 729 275 212 446 
+vertical-consumer-1   | 238 107 496 467 529 259 48 948 288 
+vertical-consumer-1   | 889 791 16 542 409 388 832 430 357 
+vertical-consumer-1   | 738 632 486 27 414 91 195 564 434 
+vertical-consumer-1   | 148 79 325 160 354 958 722 190 200 
+vertical-consumer-1   | 1 706 889 539 704 356 452 511 606 
+vertical-consumer-1   | 157 267 829 562 203 784 747 564 377 
+vertical-consumer-1   | 3 719 448 95 578 464 997 421 624 
+vertical-consumer-1   | 787 693 41 105 855 731 965 512 177 
+vertical-consumer-1   | 311 860 146 433 677 828 36 665 650 
+vertical-producer2-1  | Error sending message: Post "http://consumer:8080/end": EOF
+vertical-consumer-1   | 158 967 579 734 507 455 960 24 276 
+vertical-consumer-1   | 805 835 116 291 85 944 12 905 830 
+vertical-consumer-1   | 894 2 217 838 629 561 355 170 734 
+vertical-consumer-1   | 249 992 157 268 770 93 278 845 388 
+vertical-consumer-1   | 294 312 362 356 576 807 870 797 386 
+vertical-consumer-1   | 818 933 775 448 35 679 835 7 918 
+vertical-consumer-1   | 848 346 202 275 175 86 496 637 287 
+vertical-consumer-1   | 1631043 2803021 1364640 1706913 1747816 2063778 2092717 1625069 1851755 
+vertical-consumer-1   | 1559598 2598762 917092 1342099 1863119 1704839 1681059 1912156 1559309 
+vertical-consumer-1   | 2246103 2383625 1332444 1604988 1210495 1957154 1951271 1164683 2096408 
+vertical-consumer-1   | 2745824 2934389 1080288 1639047 2462562 3083364 2421246 2762990 2394880 
+vertical-consumer-1   | 2155370 2375777 1106539 1528489 1846037 2127754 2229928 1417331 1754736 
+vertical-consumer-1   | 1413501 2041157 900575 1285405 1776246 1489067 1737568 1854765 1442098 
+vertical-consumer-1   | 2577504 3099604 1571093 2357028 2076578 2690511 2355678 2149476 2624167 
+vertical-consumer-1   | 2167352 3277186 1541409 1906629 2030421 2448568 2561540 2322891 2264090 
+vertical-consumer-1   | 2172145 2514165 1387020 1991975 2143588 2402557 2322610 2261782 2225071 
+vertical-producer1-1  | Error sending message: Post "http://consumer:8080/end": EOF
+vertical-consumer-1   | Time: 0.145904 ms
+vertical-consumer-1 exited with code 0
+vertical-producer1-1 exited with code 0
+vertical-producer2-1 exited with code 0

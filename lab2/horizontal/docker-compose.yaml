@@ -7,6 +7,15 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - consumer1
+      - consumer2
+      - consumer3
+      - consumer4
+      - consumer5
+      - consumer6
+      - consumer7
+      - consumer8
+      - consumer9
+      - mega_consumer
     networks:
       - lab2network
 
@@ -30,6 +39,34 @@ services:
     networks:
       - lab2network
 
+  mega_consumer:
+    build:
+      context: ./mega_consumer
+    networks:
+      - lab2network
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.9'
+    env_file:
+      - ./MSize.env
+
+  # test_consumer:
+  #   build:
+  #     context: ./test_consumer
+  #   depends_on:
+  #     - mega_consumer
+  #   networks:
+  #     - lab2network
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: '0.9'
+  #   env_file:
+  #     - ./MSize.env
+
   consumer1:
     build:
       context: ./consumer
@@ -39,28 +76,38 @@ services:
       resources:
         limits:
           cpus: '0.9'
+    env_file:
+      - ./MSize.env
+    environment:
+      - CONSUMER_NUMBER=1
 
   consumer2:
     build:
       context: ./consumer
-      # no_cache: true
     networks:
       - lab2network
     deploy:
       resources:
         limits:
           cpus: '0.9'
+    env_file:
+      - ./MSize.env
+    environment:
+      - CONSUMER_NUMBER=2
 
   consumer3:
     build:
       context: ./consumer
-      # no_cache: true
     networks:
       - lab2network
     deploy:
       resources:
         limits:
           cpus: '0.9'
+    env_file:
+      - ./MSize.env
+    environment:
+      - CONSUMER_NUMBER=3
 
   consumer4:
     build:
@@ -71,28 +118,38 @@ services:
       resources:
         limits:
           cpus: '0.9'
+    env_file:
+      - ./MSize.env
+    environment:
+      - CONSUMER_NUMBER=4
 
   consumer5:
     build:
       context: ./consumer
-      # no_cache: true
     networks:
       - lab2network
     deploy:
       resources:
         limits:
           cpus: '0.9'
+    env_file:
+      - ./MSize.env
+    environment:
+      - CONSUMER_NUMBER=5
 
   consumer6:
     build:
       context: ./consumer
-      # no_cache: true
     networks:
       - lab2network
     deploy:
       resources:
         limits:
           cpus: '0.9'
+    env_file:
+      - ./MSize.env
+    environment:
+      - CONSUMER_NUMBER=6
 
   consumer7:
     build:
@@ -103,22 +160,42 @@ services:
       resources:
         limits:
           cpus: '0.9'
+    env_file:
+      - ./MSize.env
+    environment:
+      - CONSUMER_NUMBER=7
 
   consumer8:
     build:
       context: ./consumer
-      # no_cache: true
     networks:
       - lab2network
     deploy:
       resources:
         limits:
           cpus: '0.9'
+    env_file:
+      - ./MSize.env
+    environment:
+      - CONSUMER_NUMBER=8
 
   consumer9:
     build:
       context: ./consumer
-      # no_cache: true
+    networks:
+      - lab2network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.9'
+    env_file:
+      - ./MSize.env
+    environment:
+      - CONSUMER_NUMBER=9
+
+  blackhole:
+    build:
+      context: ./blackhole
     networks:
       - lab2network
     deploy:

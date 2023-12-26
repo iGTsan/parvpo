@@ -11,19 +11,32 @@ import (
 	"time"
 )
 
+func makeGet(pdType int, message_row int, message_coloum int, matrixSize int) string {
+	part_len := matrixSize / 3
+	message_row_ := min(2, message_row / part_len)
+	message_coloum_ := min(2, message_coloum / part_len)
+	// cons_num := 
+	return fmt.Sprintf("?pdtype=%d&message_row=%d&message_coloumn=%d",
+		pdType, message_row_, message_coloum_)
+}
+
 func sendMessagesToBroker(pdType int, matrixSize int) {
+	rand.Seed(int64(pdType))
 	host := "nginx"
 	// host := "consumer1"
-	brokerURL := "http://" + host + ":8080"
+	brokerURL := "http://" + host + ":8080/"
 	endURL := "http://" + host + ":8080/end"
 	i := 0
 	for i < matrixSize*matrixSize {
+		message_row := i / matrixSize
+		message_coloumn := i % matrixSize
 		if i%1000 == 0 {
 			fmt.Printf("Sending message %d...\n", i)
 		}
 		data := map[string]interface{}{
-			"message_type":    pdType,
 			"message_content": rand.Intn(1000) + 1,
+			"message_row": message_row,
+			"message_coloumn": message_coloumn,
 		}
 
 		// Convert data to JSON
@@ -34,15 +47,17 @@ func sendMessagesToBroker(pdType int, matrixSize int) {
 		}
 
 		// Send POST request with JSON data
-		response, err := http.Post(brokerURL, "application/json", bytes.NewBuffer(jsonData))
+		response, err := http.Post(brokerURL + makeGet(pdType, message_row, message_coloumn, matrixSize), "application/json", bytes.NewBuffer(jsonData))
 		if err != nil {
 			fmt.Printf("Error sending message: %v\n", err)
 			time.Sleep(1 * time.Second)
 			continue
 		}
 		if response.StatusCode == -520 {
+			fmt.Printf("Error sending message (520): %v\n", err)
 			continue
 		}
+		// fmt.Printf("Response headers: %v\n", response.Header)
 		i++
 	}
 
@@ -64,9 +79,34 @@ func sendMessagesToBroker(pdType int, matrixSize int) {
 		fmt.Printf("Error sending message: %v\n", err)
 		time.Sleep(1 * time.Second)
 	}
+	time.Sleep(1 * time.Second)
+}
+
+func test() {
+	host := "http://mega_consumer:8080/res"
+	data := map[string]interface{}{
+		"message_content": rand.Intn(1000) + 1,
+		"message_row": 1,
+		"message_coloumn": 2,
+	}
+
+	// Convert data to JSON
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		fmt.Printf("Error encoding JSON: %v\n", err)
+	}
+
+	// Send POST request with JSON data
+	_, err = http.Post(host, "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		fmt.Printf("Error sending message: %v\n", err)
+		time.Sleep(1 * time.Second)
+	}
+
 }
 
 func main() {
+	// test()
 	if len(os.Args) > 2 {
 		arg1, err := strconv.Atoi(os.Args[1])
 		if err != nil {
