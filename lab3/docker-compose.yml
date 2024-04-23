@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  web:
+    build: 
+      context: ./web  # путь к директории, содержащей Dockerfile
+      dockerfile: Dockerfile      # имя Dockerfile (необязательно, если файл называется Dockerfile)
+    ports:
+      - "3000:3000"
+    # depends_on:
+      # - api
+
+  # api:
+  #   image: ваш_образ_api_сервера
+  #   depends_on:
+  #     - db
+  #     - rabbitmq
+
+  # rabbitmq:
+  #   image: "rabbitmq:management"
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
