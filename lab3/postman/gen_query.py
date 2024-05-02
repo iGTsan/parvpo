@@ -3,7 +3,7 @@ import random
 
 
 def genItem(id, time, state, i, n):
-    host = "web"
+    host = "api"
     page = "send"
     itemStr = f"""
 		{{
@@ -63,5 +63,5 @@ def genQuery(n):
 
 
 with open('queries.json', 'w') as f:
-    query = genQuery(2000)
+    query = genQuery(20)
     f.write(query)

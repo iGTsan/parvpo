@@ -2,34 +2,16 @@
 const express = require('express');
 const app = express();
 const log = require('./log');
-const rabbit = require('./rabbit');
 const db_funcs = require("./db");
 
 // Задание порта на котором будет работать сервер
 const PORT = process.env.PORT || 3000; 
 app.use(express.json());
-app.use(express.static('public'));
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html'); // Отправка файла index.html при обращении к корню
-});
 
 const db_promise = db_funcs.open("db");
 let db = undefined;
-const rabbit_promise = rabbit.PrepareQueue();
-let rabbit_is_started = false;
 let activeRequests = 0;
 const activeRequestsLimit = 100;
-
-app.post('/send', async (req, res) => {
-    if (!rabbit_is_started) {
-        await rabbit_promise;
-        rabbit_is_started = true;
-    }
-    const { userId, state, currentTime } = req.body;
-    await rabbit.sendToQueue({ userId, state, currentTime });
-
-    res.status(200).send("Запрос принят и перенаправлен на обработку.");
-});
 
 const procMiddleware = (req, res, next) => {
     if (activeRequests >= activeRequestsLimit) {

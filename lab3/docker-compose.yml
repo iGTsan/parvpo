@@ -1,15 +1,23 @@
 version: '3.7'
 
 services:
-  web:
+  service:
     build: 
-      context: ./web 
+      context: ./service
+    networks:
+      - lab3network
+    depends_on:
+      - rabbitmq
+
+  api:
+    build: 
+      context: ./api
     ports:
       - "3000:3000"
     networks:
       - lab3network
     depends_on:
-      - rabbitmq
+      - service
 
   rabbitmq:
     image: "rabbitmq:3-management"
@@ -28,7 +36,7 @@ services:
   newman:
     image: postman/newman:alpine
     depends_on:
-      - web
+      - api
     volumes:
       - ./postman:/etc/newman
     entrypoint:

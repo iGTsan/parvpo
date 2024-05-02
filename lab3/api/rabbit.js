@@ -39,7 +39,7 @@ listenForRequests = async function() {
         if (msg !== null) {
             const requestData = JSON.parse(msg.content.toString());
             // console.log("Обрабатываемые данные:", requestData);
-            const response = await fetch('http://web:3000/proc', {
+            const response = await fetch('http://service:3000/proc', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
