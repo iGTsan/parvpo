@@ -29,12 +29,13 @@ class Lock {
   class SharedObject {
     constructor(data) {
       this.data = data;
-    //   this.lock = new Lock();
+      this.lock = new Lock();
     }
   
     async get() {
-    //   const release = await this.lock.lock();
-      const release = 1;
-      return {data, release};
+      const release = await this.lock.lock();
+      return {data: this.data, release: release};
     }
   }
+
+  module.exports = SharedObject;

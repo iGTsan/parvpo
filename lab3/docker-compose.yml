@@ -1,22 +1,47 @@
 version: '3.7'
+
 services:
   web:
     build: 
-      context: ./web  # путь к директории, содержащей Dockerfile
-      dockerfile: Dockerfile      # имя Dockerfile (необязательно, если файл называется Dockerfile)
+      context: ./web 
     ports:
       - "3000:3000"
-    # depends_on:
-      # - api
+    networks:
+      - lab3network
+    depends_on:
+      - rabbitmq
 
-  # api:
-  #   image: ваш_образ_api_сервера
-  #   depends_on:
-  #     - db
-  #     - rabbitmq
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "rabbitmq"
+    environment:
+      RABBITMQ_DEFAULT_USER: "user"
+      RABBITMQ_DEFAULT_PASS: "password"
+    volumes:
+      - ./rabbit/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+    ports:
+      - "5672:5672"      # AMQP protocol port
+      - "15672:15672"    # Management UI
+    networks:
+      - lab3network
 
-  # rabbitmq:
-  #   image: "rabbitmq:management"
-  #   ports:
-  #     - "5672:5672"
-  #     - "15672:15672"
+  newman:
+    image: postman/newman:alpine
+    depends_on:
+      - web
+    volumes:
+      - ./postman:/etc/newman
+    entrypoint:
+      - newman
+    command:
+      - run
+      - "/etc/newman/queries.json"
+      - "-r"
+      - "json"
+      - "--reporter-json-export"
+      - "/etc/newman/output.json"
+    networks:
+      - lab3network
+
+networks:
+  lab3network:

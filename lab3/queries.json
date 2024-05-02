@@ -1,0 +1,292 @@
+
+{
+	"info": {
+		"_postman_id": "a31330b9-40dd-4c3f-a185-509eece25221",
+		"name": "Сережа",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34569649"
+	},
+	"item": [
+    
+		{
+			"name": "1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"29765\",\n    \"state\": \"stop\",\n    \"currentTime\": \"2024-04-30 18:22:54\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "web:3000/send",
+					"host": [
+						"web"
+					],
+					"port": "3000",
+					"path": [
+						"send"
+					]
+				}
+			},
+			"response": []
+		}
+    ,
+		{
+			"name": "1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"783673\",\n    \"state\": \"stop\",\n    \"currentTime\": \"2024-04-30 18:22:54\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "web:3000/send",
+					"host": [
+						"web"
+					],
+					"port": "3000",
+					"path": [
+						"send"
+					]
+				}
+			},
+			"response": []
+		}
+    ,
+		{
+			"name": "1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"883990\",\n    \"state\": \"stop\",\n    \"currentTime\": \"2024-04-30 18:22:54\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "web:3000/send",
+					"host": [
+						"web"
+					],
+					"port": "3000",
+					"path": [
+						"send"
+					]
+				}
+			},
+			"response": []
+		}
+    ,
+		{
+			"name": "1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"49303\",\n    \"state\": \"stop\",\n    \"currentTime\": \"2024-04-30 18:22:54\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "web:3000/send",
+					"host": [
+						"web"
+					],
+					"port": "3000",
+					"path": [
+						"send"
+					]
+				}
+			},
+			"response": []
+		}
+    ,
+		{
+			"name": "1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"691996\",\n    \"state\": \"start\",\n    \"currentTime\": \"2024-04-30 18:22:54\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "web:3000/send",
+					"host": [
+						"web"
+					],
+					"port": "3000",
+					"path": [
+						"send"
+					]
+				}
+			},
+			"response": []
+		}
+    ,
+		{
+			"name": "1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"636549\",\n    \"state\": \"stop\",\n    \"currentTime\": \"2024-04-30 18:22:54\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "web:3000/send",
+					"host": [
+						"web"
+					],
+					"port": "3000",
+					"path": [
+						"send"
+					]
+				}
+			},
+			"response": []
+		}
+    ,
+		{
+			"name": "1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"310663\",\n    \"state\": \"start\",\n    \"currentTime\": \"2024-04-30 18:22:54\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "web:3000/send",
+					"host": [
+						"web"
+					],
+					"port": "3000",
+					"path": [
+						"send"
+					]
+				}
+			},
+			"response": []
+		}
+    ,
+		{
+			"name": "1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"284144\",\n    \"state\": \"start\",\n    \"currentTime\": \"2024-04-30 18:22:54\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "web:3000/send",
+					"host": [
+						"web"
+					],
+					"port": "3000",
+					"path": [
+						"send"
+					]
+				}
+			},
+			"response": []
+		}
+    ,
+		{
+			"name": "1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"851396\",\n    \"state\": \"start\",\n    \"currentTime\": \"2024-04-30 18:22:54\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "web:3000/send",
+					"host": [
+						"web"
+					],
+					"port": "3000",
+					"path": [
+						"send"
+					]
+				}
+			},
+			"response": []
+		}
+    ,
+		{
+			"name": "1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"489855\",\n    \"state\": \"start\",\n    \"currentTime\": \"2024-04-30 18:22:54\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "web:3000/send",
+					"host": [
+						"web"
+					],
+					"port": "3000",
+					"path": [
+						"send"
+					]
+				}
+			},
+			"response": []
+		}
+    
+	]
+}

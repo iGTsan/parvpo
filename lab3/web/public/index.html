@@ -17,18 +17,19 @@
     </form>
 
     <script>
-        function doReq(url) {
+        function doReq(state) {
             // Получаем текущее время
             var now = new Date().toISOString();
             // Формируем объект данных для отправки
             var data = {
                 userId: $('#userId').val(),
+                state: state,
                 currentTime: now // Добавляем текущее время к данным
             };
 
             $.ajax({
                 type: "POST",
-                url: url,
+                url: "/send",
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 success: function(response) {
@@ -38,11 +39,11 @@
         }
 
         function startWork() {
-            doReq("/start");
+            doReq("start");
         }
 
         function endWork() {
-            doReq("/end");
+            doReq("stop");
         }
     </script>
 </body>
