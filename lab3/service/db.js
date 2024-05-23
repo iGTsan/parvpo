@@ -20,7 +20,7 @@ module.exports.insert = async function (db, values) {
     // get the last insert id
     log(`A row has been inserted with rowid ${this.lastID}`);
   });
-  await sleep(20);
+  await sleep(100);
   return true;
 }
 

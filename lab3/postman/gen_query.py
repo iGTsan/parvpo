@@ -63,5 +63,5 @@ def genQuery(n):
 
 
 with open('queries.json', 'w') as f:
-    query = genQuery(20)
+    query = genQuery(7500)
     f.write(query)

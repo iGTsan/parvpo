@@ -48,6 +48,8 @@ services:
       - "json"
       - "--reporter-json-export"
       - "/etc/newman/output.json"
+      - "--delay-request"
+      - "40"  # задержка в 1000 миллисекунд, или 1 секунда, между запросами
     networks:
       - lab3network
 
