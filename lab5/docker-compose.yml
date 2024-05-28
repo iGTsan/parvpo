@@ -1,0 +1,151 @@
+version: '3.7'
+
+services:
+  service:
+    build: 
+      context: ./service
+    networks:
+      - lab3network
+    depends_on:
+      - rabbitmq
+    logging:
+      driver: json-file
+      options:
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+
+  api:
+    build: 
+      context: ./api
+    ports:
+      - "3000:3000"
+    networks:
+      - lab3network
+    depends_on:
+      - service
+    logging:
+      driver: json-file
+      options:
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "rabbitmq"
+    environment:
+      RABBITMQ_DEFAULT_USER: "user"
+      RABBITMQ_DEFAULT_PASS: "password"
+    volumes:
+      - ./rabbit/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+    ports:
+      - "5672:5672"      # AMQP protocol port
+      - "15672:15672"    # Management UI
+    networks:
+      - lab3network
+    depends_on:
+      - promtail
+    logging:
+      driver: json-file
+      options:
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+
+  newman:
+    image: postman/newman:alpine
+    depends_on:
+      - api
+    volumes:
+      - ./postman:/etc/newman
+    entrypoint:
+      - newman
+    command:
+      - run
+      - "/etc/newman/queries.json"
+      - "-r"
+      - "json"
+      - "--reporter-json-export"
+      - "/etc/newman/output.json"
+    networks:
+      - lab3network
+    logging:
+      driver: json-file
+      options:
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+      
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki/etc:/etc/loki
+      - type: bind
+        source: ./loki/loki_data
+        target: /data
+    networks:
+      - lab3network
+    logging:
+      driver: json-file
+      options:
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - ./promtail:/etc/promtail
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/promtail-config.yaml
+    depends_on:
+      - loki
+    networks:
+      - lab3network
+    logging:
+      driver: json-file
+      options:
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: "password"
+    depends_on:
+      - loki
+      - prometheus
+    networks:
+      - lab3network
+    logging:
+      driver: json-file
+      options:
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+  
+  node-exporter:
+    image: prom/node-exporter:latest
+    depends_on:
+      - prometheus
+    networks:
+      - lab3network
+    logging:
+      driver: json-file
+      options:
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - lab3network
+    logging:
+      driver: json-file
+      options:
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+
+
+volumes:
+  grafana_data:
+
+
+networks:
+  lab3network:

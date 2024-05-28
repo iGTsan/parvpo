@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Учет Рабочего Времени</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Учет рабочего времени</h1>
+    <form id="timeForm">
+        <label for="userId">ID пользователя:</label>
+        <input type="text" id="userId" name="userId" required>
+
+        <button type="button" onclick="startWork()">Начать работу</button>
+        <button type="button" onclick="endWork()">Завершить работу</button>
+    </form>
+
+    <script>
+        function doReq(state) {
+            // Получаем текущее время
+            var now = new Date().toISOString();
+            // Формируем объект данных для отправки
+            var data = {
+                userId: $('#userId').val(),
+                state: state,
+                currentTime: now // Добавляем текущее время к данным
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/send",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                success: function(response) {
+                    alert(response);
+                }
+            });
+        }
+
+        function startWork() {
+            doReq("start");
+        }
+
+        function endWork() {
+            doReq("stop");
+        }
+    </script>
+</body>
+</html>
