@@ -1,0 +1,65 @@
+version: '3.7'
+
+services:
+  xun-hub:
+    image: ghcr.io/s013k/parvpo_task2:latest
+    # depends_on:
+    #   - promtail
+    networks:
+      - monitoring-net
+
+  monitoring-script:
+    build:
+      context: ./requests
+    depends_on:
+      - xun-hub
+    networks:
+      - monitoring-net
+    logging:
+      driver: json-file
+      options:
+        tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki/etc:/etc/loki
+      - type: bind
+        source: ./loki/loki_data
+        target: /data
+    networks:
+      - monitoring-net
+
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - ./promtail:/etc/promtail
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/promtail-config.yaml
+    depends_on:
+      - loki
+    networks:
+      - monitoring-net
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: "password"
+    depends_on:
+      - loki
+    networks:
+      - monitoring-net
+
+volumes:
+  grafana_data:
+
+networks:
+  monitoring-net:
